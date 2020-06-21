@@ -1,7 +1,7 @@
 # autohidemissions
 Auto hiding missions in mission chief.
 
-This script requires <a href="https://www.tampermonkey.net/">Tampermonkey (chrome)</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/">Greasemonkey (firefox)</a> to be installed for it to work!
+This script requires <a href="https://www.tampermonkey.net/">Tampermonkey (chrome)</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/">Tampermonkey (firefox)</a> to be installed for it to work!
 
 <a href="https://github.com/MisteryMan/autohidemissions/raw/master/autohide.user.js"> Click here to install the script </a>
 
