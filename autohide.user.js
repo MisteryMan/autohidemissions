@@ -28,6 +28,7 @@
 		//Process each mission and change their appearance accordingly
         for (var i = 0; i < Missions.length; i++)
         {
+			if (e.id != Missions[i].getAttribute('mission_id')) continue;
 			// Get the mission DIV layout
 			var autoHideChildren = Missions[i].firstElementChild.children;
 			//Process the mission DIV layout and check for red status
