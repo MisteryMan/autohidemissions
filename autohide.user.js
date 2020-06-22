@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autohide Missions
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.1.1
 // @description  Autohides missions that don't need your attention. Added settings and set default settings to do nothing.
 // @author       MisteryKid
 // @include      /^https?:\/\/[www.]*(?:leitstellenspiel\.de|missionchief\.co\.uk|missionchief\.com|meldkamerspel\.com|centro-de-mando\.es|missionchief-australia\.com|larmcentralen-spelet\.se|operatorratunkowy\.pl|operatore112\.it|operateur112\.fr|dispetcher112\.ru|alarmcentral-spil\.dk|nodsentralspillet\.com|operacni-stredisko\.cz|112-merkez\.com|jogo-operador112\.com|operador193\.com|centro-de-mando\.mx|dyspetcher101-game\.com|missionchief-japan\.com|hatakeskuspeli\.com|missionchief-korea\.com|jocdispecerat112\.com|dispecerske-centrum\.com)\/.*$/
@@ -34,8 +34,8 @@
             },
             'events':
             {
-            'open': function()
-                { GM_config.frame.setAttribute("style", "bottom: auto;border: 1px solid rgb(0, 0, 0); height: auto; left: 210px;margin: 0px;max-height: 95%;max-width: 95%;opacity: 1;overflow: auto;padding: 0px;position: fixed;right: auto;top: 123px;/* width: 75%; */z-index: 9999;display: block;") }
+            'open': function() { GM_config.frame.setAttribute("style", "bottom: auto;border: 1px solid rgb(0, 0, 0); height: auto; left: 210px;margin: 0px;max-height: 95%;max-width: 95%;opacity: 1;overflow: auto;padding: 0px;position: fixed;right: auto;top: 123px;/* width: 75%; */z-index: 9999;display: block;") },
+			'save': function() { location.reload(); }
             }
         }
     );
