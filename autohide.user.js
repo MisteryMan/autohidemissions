@@ -10,6 +10,26 @@
 // ==/UserScript==
 
 (function() {
+    	var GreenStatusText;
+    	var YellowStatusText;
+    	var Hidden;
+    	var Collapse;
+    	var Nothing;
+
+    	if ( I18n.locale == "nl_NL"){
+    	GreenStatusText = 'Groene Status';
+    	YellowStatusText = 'Gele Status';
+    	Hidden = 'Verbergen';
+    	Collapse = 'Inklappen';
+    	Nothing = 'Niets doen'
+    	}
+    	else {
+    	GreenStatusText = 'Green Status';
+    	YellowStatusText = 'Yellow Status';
+    	Hidden = 'Hidden';
+    	Collapse = 'Collapse';
+    	Nothing = 'Nothing'
+    	}
 	var frame = document.createElement('div');
     $("#search_input_field_missions").before(frame);
     GM_config.init(
@@ -20,17 +40,17 @@
             {
                 'greenStatus': // This is the id of the field
                 {
-                    'label': 'Green Status', // Appears next to field
+                    'label': GreenStatusText, // Appears next to field
                     'type': 'select', // Makes this setting a text field
-                    'default': 'Nothing', // Default value if user doesn't change it
-                    'options': ['Hidden', 'Collapse', 'Nothing']
+                    'default': Nothing, // Default value if user doesn't change it
+                    'options': [Hidden, Collapse, Nothing]
                 },
                 'yellowStatus':
                 {
-                    'label': 'Yellow Status',
+                    'label': YellowStatusText,
                     'type': 'select',
-                    'default': 'Nothing',
-                    'options': ['Hidden', 'Collapse', 'Nothing']
+                    'default': Nothing,
+                    'options': [Hidden, Collapse, Nothing]
                 }
             },
             'css': '#autoHideMissions_greenStatus_var { background-image: linear-gradient(to bottom, #5cb85c 0, #419641 100%); text-align: center; height: 30px; line-height: 30px;border-radius: 10px; border: 0px solid #000; padding: 0px;} #autoHideMissions_yellowStatus_var { background-image: linear-gradient(to bottom, #f0d54e 0, #f0ad4e 100%);  text-align: center; height: 30px; line-height: 30px; border-radius: 10px; border: 0px solid #000; padding: 0px;} #autoHideMissions_field_yellowStatus { color: #000; } #autoHideMissions_field_greenStatus { color: #000; }',
@@ -82,7 +102,7 @@
         var missionStatus = missionElement.classList;
         if (missionStatus.contains("mission_panel_red"))
         { // If mission state is Red, remove display style setting
-            state("Nothing", missionElement, missionElementChildren);
+            state(Nothing, missionElement, missionElementChildren);
         }
         else if (missionStatus.contains("mission_panel_yellow"))
         { // If mission state is YELLOW, pass yellowStatus.setting over to state() function.
@@ -95,15 +115,15 @@
     };
     function state(type, item, itemChildren) {
         switch(type) {
-            case "Nothing":
+            case Nothing:
                 item.style.display = "";
                 itemChildren[1].style.display = "";
                 break;
-            case "Collapse":
+            case Collapse:
                 item.style.display = "";
                 itemChildren[1].style.display = "none";
                 break;
-            case "Hidden":
+            case Hidden:
                 item.style.display = "none";
                 itemChildren[1].style.display = "none";
                 break;
