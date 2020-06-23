@@ -4,8 +4,7 @@ Auto hiding missions in mission chief.
 This script requires <a href="https://www.tampermonkey.net/">Tampermonkey (chrome)</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/">Tampermonkey (firefox)</a> to be installed for it to work!
 
 - Missions with a RED status will be on full display.
-- Missions with a YELLOW status, vehicles enroute, will automatically collapse as to not take up as much space.
-- Missions with a GREEN status will be completely hidden from view in the mission list since they don't require any more attention.
+- Missions with a YELLOW or GREEN status can be either collapsed or fully hidden from view.
 
 <a href="https://github.com/MisteryMan/autohidemissions/raw/master/autohide.user.js"> Click here to install the script </a>
 
