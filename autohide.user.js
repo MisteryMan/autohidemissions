@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autohide Missions
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.5
 // @description  Autohides missions that don't need your attention. Added settings and set default settings to do nothing.
 // @author       MisteryKid
 // @include      /^https?:\/\/[www.]*(?:leitstellenspiel\.de|missionchief\.co\.uk|missionchief\.com|meldkamerspel\.com|centro-de-mando\.es|missionchief-australia\.com|larmcentralen-spelet\.se|operatorratunkowy\.pl|operatore112\.it|operateur112\.fr|dispetcher112\.ru|alarmcentral-spil\.dk|nodsentralspillet\.com|operacni-stredisko\.cz|112-merkez\.com|jogo-operador112\.com|operador193\.com|centro-de-mando\.mx|dyspetcher101-game\.com|missionchief-japan\.com|hatakeskuspeli\.com|missionchief-korea\.com|jocdispecerat112\.com|dispecerske-centrum\.com)\/.*$/
@@ -65,10 +65,11 @@
     {
         var Missions = $('.missionSideBarEntry');
         for (var i = 0; i < Missions.length; i++) {
-
-            //console.log(e);
-            stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'))
-
+			var missionID = Missions[i].getAttribute("mission_id");
+            var missionOut = JSON.parse(localStorage.getItem("lssm_missionOut"));
+                        if (!missionOut.hasOwnProperty(missionID)) {
+                stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'))
+            }
         }
         //initialize();
     }
@@ -119,9 +120,14 @@
         var Missions = $('.missionSideBarEntry');
 		//Process each mission and change their appearance accordingly
         for (var i = 0; i < Missions.length; i++) {
+            // Get and convert localStorage.lssm_missionOut to a readable format.
+            var missionID = Missions[i].getAttribute("mission_id");
 
-            //console.log(e);
-            stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'))
+            var missionOut = JSON.parse(localStorage.getItem("lssm_missionOut"));
+            if (!missionOut.hasOwnProperty(missionID)) {
+                stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'))
+            }
+
 
         }
     }
