@@ -108,7 +108,7 @@
                 stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'));
             }
             else {
-                if (missionOut.hasOwnProperty(missionID) !== null) {
+                if (!missionOut.hasOwnProperty(missionID)) {
                     stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'));
                 }
             }        }
@@ -167,7 +167,7 @@
                 stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'));
             }
             else {
-                if (missionOut.hasOwnProperty(missionID) !== null) {
+                if (!missionOut.hasOwnProperty(missionID)) {
                     stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'));
                 }
             }
