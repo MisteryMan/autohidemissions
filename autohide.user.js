@@ -103,11 +103,10 @@
         var Missions = $('.missionSideBarEntry');
         for (var i = 0; i < Missions.length; i++) {
 			var missionID = Missions[i].getAttribute("mission_id");
-            var missionOut = JSON.parse(localStorage.getItem("lssm_missionOut"), function (key, value) {
-                if (key === null) {
-                    stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'))
-                }
-            });
+            var missionOut = JSON.parse(localStorage.getItem("lssm_missionOut"));
+                        if (!missionOut.hasOwnProperty(missionID)) {
+                stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'))
+            }
 
         }
     }
@@ -160,12 +159,14 @@
         for (var i = 0; i < Missions.length; i++) {
             // Get and convert localStorage.lssm_missionOut to a readable format.
             var missionID = Missions[i].getAttribute("mission_id");
-            var missionOut = JSON.parse(localStorage.getItem("lssm_missionOut"), function (key, value) {
-                if (key === null) {
-                    stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'))
-                }
 
-            });
+            var missionOut = JSON.parse(localStorage.getItem("lssm_missionOut"));
+            if (!missionOut.hasOwnProperty(missionID)) {
+                stateSwitcher(Missions[i].firstElementChild, GM_config.get('greenStatus'), GM_config.get('yellowStatus'))
+            }
+
+
+
         }
     }
 })();
