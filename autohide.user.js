@@ -117,8 +117,8 @@
         // Get mission Element Children, useful for collapsing.
         var missionElementChildren = missionElement.children;
         // Reset display setting for both the parent and the child element.
-        missionElement.style.display = "";
-        missionElementChildren[1].style.display = "";
+        //missionElement.style.display = "";
+        //missionElementChildren[1].style.display = "";
         // Shorten Classlist variable.
         var missionStatus = missionElement.classList;
         if (missionStatus.contains("mission_panel_red"))
