@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autohide Missions
 // @namespace    http://tampermonkey.net/
-// @version      1.6
+// @version      1.6.1
 // @description  Autohides missions that don't need your attention. Added settings and set default settings to do nothing.
 // @author       MisteryKid
 // @include      /^https?:\/\/[www.]*(?:leitstellenspiel\.de|missionchief\.co\.uk|missionchief\.com|meldkamerspel\.com|centro-de-mando\.es|missionchief-australia\.com|larmcentralen-spelet\.se|operatorratunkowy\.pl|operatore112\.it|operateur112\.fr|dispetcher112\.ru|alarmcentral-spil\.dk|nodsentralspillet\.com|operacni-stredisko\.cz|112-merkez\.com|jogo-operador112\.com|operador193\.com|centro-de-mando\.mx|dyspetcher101-game\.com|missionchief-japan\.com|hatakeskuspeli\.com|missionchief-korea\.com|jocdispecerat112\.com|dispecerske-centrum\.com)\/.*$/
@@ -93,6 +93,7 @@
     function initialize() {
         if (document.getElementById("autoHideMission-green")) { document.getElementById("autoHideMission-green").remove(); }
         if (document.getElementById("autoHideMission-yellow")) { document.getElementById("autoHideMission-yellow").remove(); }
+        $("#mission_list").addClass("temp_collapse");
         var greenStatus = GM_config.get("greenStatus");
         var yellowStatus = GM_config.get("yellowStatus");
         var styleAppend = "";
@@ -101,10 +102,10 @@
                 //$("<style id='autoHideMission_green' rel='stylesheet'>\n.mission_panel_green .panel_body { display: block; }</style>").appendTo("head");
                 //break;
             case Collapse:
-                $("<style type='text/css' id='autoHideMission-green'>.mission_panel_green .panel-body { display: none; }</style>").appendTo("head");
+                $("<style type='text/css' id='autoHideMission-green'>#mission_list .missionSideBarEntry .mission_panel_green .panel-body { display: none; }</style>").appendTo("head");
                 break;
             case Hidden:
-                $("<style type='text/css' id='autoHideMission-green'>\n.mission_panel_green { display: none; }</style>").appendTo("head");
+                $("<style type='text/css' id='autoHideMission-green'>#mission_list .missionSideBarEntry .mission_panel_green { display: none; }</style>").appendTo("head");
                 break;
         }
         switch(yellowStatus) {
@@ -112,10 +113,10 @@
                 //$("<style type='text/css' id='autoHideMission_yellow'> .mission_panel_yellow .panel_body { display: block; }</style>").appendTo("head");
                 //break;
             case Collapse:
-                $("<style type='text/css' id='autoHideMission-yellow'> .mission_panel_yellow .panel-body { display: none; }</style>").appendTo("head");
+                $("<style type='text/css' id='autoHideMission-yellow'>#mission_list .missionSideBarEntry  .mission_panel_yellow .panel-body { display: none; }</style>").appendTo("head");
                 break;
             case Hidden:
-                $("<style type='text/css' id='autoHideMission-yellow'> .mission_panel_yellow { display: none; }</style>").appendTo("head");
+                $("<style type='text/css' id='autoHideMission-yellow'>#mission_list .missionSideBarEntry  .mission_panel_yellow { display: none; }</style>").appendTo("head");
                 break;
         }
     }
