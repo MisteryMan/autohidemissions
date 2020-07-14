@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Autohide Missions
 // @namespace    http://tampermonkey.net/
-// @version      1.6.2
+// @version      1.6.3
 // @description  Autohides missions that don't need your attention. Added settings and set default settings to do nothing.
 // @author       MisteryKid
 // @include      /^https?:\/\/[www.]*(?:leitstellenspiel\.de|missionchief\.co\.uk|missionchief\.com|meldkamerspel\.com|centro-de-mando\.es|missionchief-australia\.com|larmcentralen-spelet\.se|operatorratunkowy\.pl|operatore112\.it|operateur112\.fr|dispetcher112\.ru|alarmcentral-spil\.dk|nodsentralspillet\.com|operacni-stredisko\.cz|112-merkez\.com|jogo-operador112\.com|operador193\.com|centro-de-mando\.mx|dyspetcher101-game\.com|missionchief-japan\.com|hatakeskuspeli\.com|missionchief-korea\.com|jocdispecerat112\.com|dispecerske-centrum\.com)\/.*$/
@@ -14,6 +14,7 @@
     var AutoHideMissionsText;
     var GreenStatusText;
     var YellowStatusText;
+	var RedStatusText;
     var Hidden;
     var Collapse;
     var Nothing;
@@ -25,6 +26,7 @@
         AutoHideMissionsText = 'Meldingen verbergen';
         GreenStatusText = 'Groene Status';
         YellowStatusText = 'Gele Status';
+		RedStatusText = 'Rode Status';
         Hidden = 'Verbergen';
         Collapse = 'Inklappen';
         Nothing = 'Niets doen'
@@ -36,6 +38,7 @@
         AutoHideMissionsText = 'Auto Hide Missions';
         GreenStatusText = 'Green Status';
         YellowStatusText = 'Yellow Status';
+		RedStatusText = 'Red Status';
         Hidden = 'Hidden';
         Collapse = 'Collapse';
         Nothing = 'Nothing'
@@ -64,13 +67,20 @@
                     'type': 'select',
                     'default': Nothing,
                     'options': [Hidden, Collapse, Nothing]
-                }
+                },
+				'redStatus':
+				{
+					'label': RedStatusText,
+					'type': 'select',
+					'default': Nothing,
+					'options': [Hidden, Collapse, Nothing]
+				}
             },
-            'css': '#autoHideMissions_greenStatus_var { background-image: linear-gradient(to bottom, #5cb85c 0, #419641 100%); text-align: center; height: 30px; line-height: 30px;border-radius: 10px; border: 0px solid #000; padding: 0px;} #autoHideMissions_yellowStatus_var { background-image: linear-gradient(to bottom, #f0d54e 0, #f0ad4e 100%);  text-align: center; height: 30px; line-height: 30px; border-radius: 10px; border: 0px solid #000; padding: 0px;} #autoHideMissions_field_yellowStatus { color: #000; } #autoHideMissions_field_greenStatus { color: #000; }',
+            'css': '#autoHideMissions_greenStatus_var { background-image: linear-gradient(to bottom, #5cb85c 0, #419641 100%); text-align: center; height: 30px; line-height: 30px;border-radius: 10px; border: 0px solid #000; padding: 0px;} #autoHideMissions_yellowStatus_var { background-image: linear-gradient(to bottom, #f0d54e 0, #f0ad4e 100%);  text-align: center; height: 30px; line-height: 30px; border-radius: 10px; border: 0px solid #000; padding: 0px;} #autoHideMissions_redStatus_var { background-image: linear-gradient(to bottom, #d9534f 0, #c9302c 100%);  text-align: center; height: 30px; line-height: 30px; border-radius: 10px; border: 0px solid #000; padding: 0px;} #autoHideMissions_field_yellowStatus, #autoHideMissions_field_greenStatus, #autoHideMissions_field_redStatus { color: #000; }',
             'events':
             {
 
-                'open': function() { GM_config.frame.setAttribute("style", "border-radius: 10px; border: 2px solid #000; padding: 20px; height: auto; background: #666;") },
+                'open': function() { GM_config.frame.setAttribute("style", "border-radius: 10px; border: 2px solid #000; padding: 20px; height: auto; background: #aaa;") },
                 'save': function() {
                     initialize();
                     GM_config.close('autoHideMissions');
@@ -93,9 +103,11 @@
     function initialize() {
         if (document.getElementById("autoHideMission-green")) { document.getElementById("autoHideMission-green").remove(); }
         if (document.getElementById("autoHideMission-yellow")) { document.getElementById("autoHideMission-yellow").remove(); }
+		if (document.getElementById("autoHideMission-red")) { document.getElementById("autoHideMission-red").remove(); }
         $("#mission_list").addClass("temp_collapse");
         var greenStatus = GM_config.get("greenStatus");
         var yellowStatus = GM_config.get("yellowStatus");
+		var redStatus = GM_config.get("redStatus");
         var styleAppend = "";
         switch(greenStatus) {
             //case Nothing:
@@ -119,5 +131,13 @@
                 $("<style type='text/css' id='autoHideMission-yellow'>#mission_list .missionSideBarEntry  .mission_panel_yellow { display: none; }</style>").appendTo("head");
                 break;
         }
+		switch(redStatus) {
+			case Collapse:
+				$("<style type='text/css' id='autoHideMission-red'>#mission_list .missionSideBarEntry  .mission_panel_red .panel-body { display: none; }</style>").appendTo("head");
+				break;
+			case Hidden:
+				$("<style type='text/css' id='autoHideMission-red'>#mission_list .missionSideBarEntry  .mission_panel_red { display: none; }</style>").appendTo("head");
+				break;
+		}
     }
 })();
